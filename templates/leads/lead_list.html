@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}Leads Dashboard{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-8">
+        <h1>Leads Dashboard</h1>
+    </div>
+    <div class="col-md-4 text-end">
+        <a href="{% url 'lead_create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Add New Lead
+        </a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header bg-light">
+        <h5 class="mb-0">Lead List</h5>
+    </div>
+    <div class="card-body p-0">
+        {% if leads %}
+            <div class="table-responsive">
+                <table class="table table-hover table-striped mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Company</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Source</th>
+                            <th>Est. Value</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for lead in leads %}
+                            <tr class="lead-status-{{ lead.status }}">
+                                <td>{{ lead.full_name }}</td>
+                                <td>{{ lead.company|default:"—" }}</td>
+                                <td>{{ lead.email }}</td>
+                                <td>
+                                    <span class="badge 
+                                        {% if lead.status == 'new' %}bg-secondary
+                                        {% elif lead.status == 'contacted' %}bg-primary
+                                        {% elif lead.status == 'qualified' %}bg-info
+                                        {% elif lead.status == 'proposal' %}bg-warning
+                                        {% elif lead.status == 'negotiation' %}bg-dark
+                                        {% elif lead.status == 'closed_won' %}bg-success
+                                        {% elif lead.status == 'closed_lost' %}bg-danger
+                                        {% endif %}">
+                                        {{ lead.get_status_display }}
+                                    </span>
+                                </td>
+                                <td>{{ lead.get_source_display }}</td>
+                                <td>{% if lead.estimated_value %}${{ lead.estimated_value }}{% else %}—{% endif %}</td>
+                                <td>{{ lead.created_at|date:"M d, Y" }}</td>
+                                <td>
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="{% url 'lead_detail' lead.pk %}" class="btn btn-outline-primary">View</a>
+                                        <a href="{% url 'lead_update' lead.pk %}" class="btn btn-outline-secondary">Edit</a>
+                                        <a href="{% url 'lead_delete' lead.pk %}" class="btn btn-outline-danger">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="p-4 text-center">
+                <p class="text-muted mb-0">No leads found. Get started by adding your first lead.</p>
+                <a href="{% url 'lead_create' %}" class="btn btn-primary mt-3">Add New Lead</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

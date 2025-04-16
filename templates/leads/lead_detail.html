@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block title %}Lead: {{ lead.full_name }}{% endblock %}
+
+{% block content %}
+<div class="row mb-3">
+    <div class="col-md-8">
+        <h1>{{ lead.full_name }}</h1>
+        <p class="text-muted">
+            {% if lead.company %}{{ lead.company }}{% endif %}
+            {% if lead.job_title %}{% if lead.company %} | {% endif %}{{ lead.job_title }}{% endif %}
+        </p>
+    </div>
+    <div class="col-md-4 text-end">
+        <div class="btn-group">
+            <a href="{% url 'lead_update' lead.pk %}" class="btn btn-primary">Edit Lead</a>
+            <a href="{% url 'lead_delete' lead.pk %}" class="btn btn-danger">Delete</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Lead Details</h5>
+            </div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <strong>Status:</strong>
+                        <span class="badge 
+                            {% if lead.status == 'new' %}bg-secondary
+                            {% elif lead.status == 'contacted' %}bg-primary
+                            {% elif lead.status == 'qualified' %}bg-info
+                            {% elif lead.status == 'proposal' %}bg-warning
+                            {% elif lead.status == 'negotiation' %}bg-dark
+                            {% elif lead.status == 'closed_won' %}bg-success
+                            {% elif lead.status == 'closed_lost' %}bg-danger
+                            {% endif %} ms-1">
+                            {{ lead.get_status_display }}
+                        </span>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Source:</strong> {{ lead.get_source_display }}
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Estimated Value:</strong> 
+                        {% if lead.estimated_value %}${{ lead.estimated_value }}{% else %}Not specified{% endif %}
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <strong>Email:</strong> <a href="mailto:{{ lead.email }}">{{ lead.email }}</a>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Phone:</strong> <a href="tel:{{ lead.phone_number }}">{{ lead.phone_number }}</a>
+                    </div>
+                    <div class="col-md-4">
+                        <strong>Next Follow-up:</strong> 
+                        {% if lead.next_follow_up %}{{ lead.next_follow_up|date:"M d, Y" }}{% else %}Not scheduled{% endif %}
+                    </div>
+                </div>
+
+                {% if lead.notes %}
+                <div class="mb-0">
+                    <strong>Notes:</strong>
+                    <div class="mt-2 p-3 bg-light rounded">
+                        {{ lead.notes|linebreaks }}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Timeline</h5>
+            </div>
+            <div class="card-body">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker bg-primary"></div>
+                        <div class="timeline-content">
+                            <h5 class="mb-1">Lead Created</h5>
+                            <p class="mb-0 text-muted">{{ lead.created_at|date:"M d, Y H:i" }}</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker bg-secondary"></div>
+                        <div class="timeline-content">
+                            <h5 class="mb-1">Last Updated</h5>
+                            <p class="mb-0 text-muted">{{ lead.updated_at|date:"M d, Y H:i" }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{% url 'lead_list' %}" class="btn btn-secondary">
+        Back to Leads List
+    </a>
+</div>
+
+<style>
+    .timeline {
+        position: relative;
+        padding-left: 1.5rem;
+    }
+    .timeline-item {
+        position: relative;
+        padding-bottom: 1.5rem;
+    }
+    .timeline-marker {
+        position: absolute;
+        left: -1.5rem;
+        width: 1rem;
+        height: 1rem;
+        border-radius: 50%;
+    }
+    .timeline-item:not(:last-child):before {
+        content: '';
+        position: absolute;
+        left: -1rem;
+        border-left: 1px solid #dee2e6;
+        height: 100%;
+    }
+</style>
+{% endblock %}
