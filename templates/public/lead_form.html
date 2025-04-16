@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Incubatour | Tourism Innovation Program</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 2rem;
+        }
+        .form-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .progress {
+            height: 8px;
+            margin-bottom: 2rem;
+        }
+        .form-label {
+            font-weight: 600;
+        }
+        .text-primary {
+            color: #0a4c81 !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8">
+                <div class="header">
+                    <h1 class="text-primary">Join Our Tourism Innovation Program</h1>
+                    <p class="text-muted">Tell us about your tourism startup or project idea, and let's explore how Incubatour can help you succeed.</p>
+                </div>
+                
+                <div class="form-container">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        <div class="mb-4 pb-2 border-bottom">
+                            <h5>About You</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.full_name.id_for_label }}" class="form-label">Your Name *</label>
+                                    {{ form.full_name }}
+                                    {% if form.full_name.errors %}
+                                        <div class="text-danger">{{ form.full_name.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.email.id_for_label }}" class="form-label">Email Address *</label>
+                                    {{ form.email }}
+                                    {% if form.email.errors %}
+                                        <div class="text-danger">{{ form.email.errors }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.phone_number.id_for_label }}" class="form-label">Phone Number *</label>
+                                    {{ form.phone_number }}
+                                    {% if form.phone_number.errors %}
+                                        <div class="text-danger">{{ form.phone_number.errors }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="{{ form.job_title.id_for_label }}" class="form-label">Your Role</label>
+                                    {{ form.job_title }}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4 pb-2 border-bottom">
+                            <h5>About Your Startup/Project</h5>
+                            <div class="mb-3">
+                                <label for="{{ form.company.id_for_label }}" class="form-label">Startup/Project Name</label>
+                                {{ form.company }}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="project_stage" class="form-label">Current Stage</label>
+                                <select id="project_stage" name="project_stage" class="form-control">
+                                    <option value="idea">Idea Stage</option>
+                                    <option value="prototype">Prototype/MVP</option>
+                                    <option value="operating">Operating Business</option>
+                                    <option value="scaling">Scaling Phase</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="tourism_focus" class="form-label">Tourism Focus Area</label>
+                                <select id="tourism_focus" name="tourism_focus" class="form-control">
+                                    <option value="cultural">Cultural Tourism</option>
+                                    <option value="ecotourism">Ecotourism</option>
+                                    <option value="adventure">Adventure Tourism</option>
+                                    <option value="community">Community-Based Tourism</option>
+                                    <option value="digital">Digital Tourism Solutions</option>
+                                    <option value="gastronomy">Gastronomic Tourism</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h5>Tell Us More</h5>
+                            <div class="mb-3">
+                                <label for="{{ form.notes.id_for_label }}" class="form-label">Project Description & Support Needed</label>
+                                {{ form.notes }}
+                                <small class="text-muted">Please briefly describe your project and what kind of support you're looking for from Incubatour (funding, mentorship, connections, etc.)</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="funding_needs" class="form-label">Estimated Funding Needs (USD)</label>
+                                <select id="funding_needs" name="funding_needs" class="form-control">
+                                    <option value="<10k">Less than $10,000</option>
+                                    <option value="10k-50k">$10,000 - $50,000</option>
+                                    <option value="50k-100k">$50,000 - $100,000</option>
+                                    <option value="100k-500k">$100,000 - $500,000</option>
+                                    <option value=">500k">More than $500,000</option>
+                                    <option value="unknown">Not sure yet</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        {{ form.source }}
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="consent" name="consent" required>
+                            <label class="form-check-label" for="consent">I agree to be contacted by Incubatour about my tourism project</label>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Submit Application</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="text-center mb-5">
+                    <a href="{% url 'home' %}" class="btn btn-outline-secondary">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

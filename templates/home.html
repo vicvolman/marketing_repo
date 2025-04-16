@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incubatour - Empowering Tourism Innovation</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 2rem;
+        }
+        .hero-section {
+            background-color: #0a4c81;
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            border-radius: 0 0 15px 15px;
+        }
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            overflow: hidden;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .card-header {
+            background-size: cover;
+            height: 120px;
+            position: relative;
+        }
+        .startup-header {
+            background: linear-gradient(rgba(25, 118, 210, 0.8), rgba(25, 118, 210, 0.9)), url('https://via.placeholder.com/800x300');
+        }
+        .consultant-header {
+            background: linear-gradient(rgba(56, 142, 60, 0.8), rgba(56, 142, 60, 0.9)), url('https://via.placeholder.com/800x300');
+        }
+        .card-icon {
+            font-size: 2.5rem;
+            color: white;
+            position: absolute;
+            bottom: -25px;
+            left: 25px;
+            background-color: inherit;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .startup-icon {
+            background-color: #1976d2;
+        }
+        .consultant-icon {
+            background-color: #388e3c;
+        }
+        .card-body {
+            padding-top: 2.5rem;
+        }
+        .stats-section {
+            background-color: #f1f5f9;
+            padding: 3rem 0;
+            margin-top: 3rem;
+            border-radius: 15px;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0a4c81;
+            margin-bottom: 0.5rem;
+        }
+        .stat-text {
+            font-size: 1rem;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h1 class="display-4 fw-bold mb-3">Incubatour</h1>
+                    <p class="lead mb-4">Pioneering decentralized cultural tourism and creative economy innovation in Colombia</p>
+                    <p class="mb-0">Empowering entrepreneurs through tourism, blockchain technology, and innovative funding solutions.</p>
+                </div>
+                <div class="col-lg-5 text-center d-none d-lg-block">
+                    <!-- Placeholder for logo/image -->
+                    <div style="width: 300px; height: 300px; background-color: rgba(255,255,255,0.2); border-radius: 50%; margin: 0 auto;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="text-center mb-5">Choose Your Path</h2>
+        
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header startup-header">
+                        <div class="card-icon startup-icon">🚀</div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Tourism Startups</h3>
+                        <p class="card-text">Looking to innovate in the tourism sector? Partner with Incubatour to access funding, mentorship, and our extensive network of industry connections.</p>
+                        <ul class="mb-4">
+                            <li>Funding opportunities</li>
+                            <li>Expert mentorship</li>
+                            <li>Tourism industry connections</li>
+                            <li>Blockchain & DAO implementation</li>
+                        </ul>
+                        <a href="{% url 'public_lead_form' %}" class="btn btn-primary btn-lg w-100">Start Your Journey</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header consultant-header">
+                        <div class="card-icon consultant-icon">👨‍💼</div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="card-title">Incubatour Consultants</h3>
+                        <p class="card-text">Access our lead management system to track potential startups, manage opportunities, and drive successful tourism innovation projects.</p>
+                        <ul class="mb-4">
+                            <li>Lead tracking dashboard</li>
+                            <li>Startup application management</li>
+                            <li>Project milestone tracking</li>
+                            <li>Funding allocation tools</li>
+                        </ul>
+                        <a href="{% url 'login' %}" class="btn btn-success btn-lg w-100">Consultant Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="stats-section mt-5">
+            <div class="container">
+                <h3 class="text-center mb-4">Our Impact</h3>
+                <div class="row">
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <div class="stat-item">
+                            <div class="stat-number">1000+</div>
+                            <div class="stat-text">Entrepreneurs Supported</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4 mb-md-0">
+                        <div class="stat-item">
+                            <div class="stat-number">$3.5M+</div>
+                            <div class="stat-text">Funding Mobilized</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stat-item">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-text">Tourism Innovations Launched</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-0">© 2025 Incubatour. Pioneering decentralized cultural tourism in Colombia.</p>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

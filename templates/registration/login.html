@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Consultant Login | Incubatour{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0">Consultant Login</h3>
+            </div>
+            <div class="card-body p-4">
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        Your username and password didn't match. Please try again.
+                    </div>
+                {% endif %}
+                
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" id="id_username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_password" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="id_password" required>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success">Sign In</button>
+                    </div>
+                    <input type="hidden" name="next" value="{{ next|default:'/leads/' }}">
+                </form>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="/" class="text-decoration-none">← Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
